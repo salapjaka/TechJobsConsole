@@ -47,14 +47,34 @@ namespace TechJobsConsole
 
             foreach (Dictionary<string, string> row in AllJobs)
             {
-                string aValue = row[column];
+                string aValue = row[column].ToUpper();
 
-                if (aValue.Contains(value))
+                if (aValue.Contains(value.ToUpper()))
                 {
                     jobs.Add(row);
                 }
             }
 
+            return jobs;
+        }
+
+        public static List<Dictionary<string, string>> FindByValue(string searchTerm)
+        {
+            LoadData();
+
+            List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
+
+            foreach (Dictionary<string, string> job in AllJobs)
+            {
+                foreach (KeyValuePair<string, string> item in job)
+                {
+                    if (item.Value.ToUpper().Contains(searchTerm.ToUpper()))
+                    {
+                        jobs.Add(job);
+
+                    }
+                }
+            }
             return jobs;
         }
 
